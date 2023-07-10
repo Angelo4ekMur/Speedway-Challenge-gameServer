@@ -26,7 +26,7 @@ nano /sc23gameServer/Dockerfile (insert text from Appendix 1 here)
 docker build -t sc23gameserver /sc23gameServer
 
 #Launching our server
-docker run --name sc23gameserver -p 40111:40111 sc23gameserver (40111:40111 port that you specified in gameServer.properties)
+docker run --name sc23gameserver --restart always -p 40111:40111 sc23gameserver (40111:40111 port that you specified in gameServer.properties)
 
 #Appendix 1:
 #######################################
@@ -41,7 +41,7 @@ CMD java -jar SC23gameServer.jar
 ########################################
 
 #Launch
-docker run --name sc23gameserver -p 40111:40111 sc23gameserver (40111:40111 port that you specified in gameServer.properties)
+docker run --name sc23gameserver --restart always -p 40111:40111 sc23gameserver (40111:40111 port that you specified in gameServer.properties)
 
 #Stop
 docker stop sc23gameserver
