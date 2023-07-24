@@ -3,27 +3,27 @@ apt-get install docker.io
 apt-get install unzip
 
 #Download the archive from the game servers
-wget https://speedwaychallenge.pl/download/server/SC23gameServer_V1.1.zip
+wget https://speedwaychallenge.pl/download/server/SC23gameServer_V1.2.zip
 
 #Creating a folder where we will unpack our archive
 mkdir /sc23gameServer
 
 #Unpack our archive into a folder
-unzip SC23gameServer_V1.1.zip -d /sc23gameServer
+unzip SC23gameServer_V1.2.zip -d /sc23gameServer
 
 #Setting the parameters in the server config file
 nano /sc23gameServer/gameServer.properties (specify the server ip, specify the port, you can leave by default, set false)
 !!!!Save ctrl + x, then Y!!!!
 
 #Creating a docker file
-touch /sc23gameServer/Dockerfile
+touch /sc23gameServer/server/Dockerfile
 
 #Insert the instructions from Appendix 1
-nano /sc23gameServer/Dockerfile (insert text from Appendix 1 here)
+nano /sc23gameServer/server/Dockerfile (insert text from Appendix 1 here)
 !!!!Save ctrl + x, then Y!!!!
 
 #Collecting an image
-docker build -t sc23gameserver /sc23gameServer
+docker build -t sc23gameserver /sc23gameServer/server
 
 #Launching our server
 docker run --name sc23gameserver --restart always -p 40111:40111 sc23gameserver (40111:40111 port that you specified in gameServer.properties)
@@ -32,7 +32,7 @@ docker run --name sc23gameserver --restart always -p 40111:40111 sc23gameserver 
 #######################################
 
 FROM openjdk:8
-WORKDIR /sc23gameServer
+WORKDIR /sc23gameServer/server
 COPY data ./data
 COPY gameServer.properties ./
 COPY SC23gameServer.jar ./
